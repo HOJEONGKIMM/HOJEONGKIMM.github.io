@@ -21,13 +21,12 @@ Spring Boot, MySQL, AWS를 활용한 백엔드 개발을 주로 하며, AI를 �
 ## 🚀 주요 프로젝트
 
 ➡️ **[스마트폰 카메라를 활용한 시험감독 보조 시스템 - "EYESee"](https://github.com/CSID-DGU/2024-2-SCS4031-4tune-1)**
-➡️
 
 ## 📬 Contact Me
 - **GitHub**: [HOJEONGKIMM](https://github.com/HOJEONGKIMM)
 - **LinkedIn**: [HoJeong Kim](http://www.linkedin.com/in/hojeong-kim-07600a2ba)
 - **Blog**: [Velog](https://velog.io/@naninaniyoyoyoyo/posts)
-- **Email**: by08035@naver.com
+- **Email**: khj15263245@gmail.com
 
 ---
 🙌 **꾸준히 성장하는 개발자가 되겠습니다. 감사합니다!**
