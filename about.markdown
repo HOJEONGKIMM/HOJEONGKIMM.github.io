@@ -1,38 +1,33 @@
 ---
 layout: page
-title: About the Theme
-tags: [about, Jekyll, theme, moon]
-date: 2024-02-11
+title: About Me
+tags: [about, portfolio, blog]
+date: 2025-01-18
 comments: false
 ---
 
-<center><a href="http://TolgaTatli.github.io/Moonrise"><b>Moon</b></a> is a minimal, one column jekyll theme.</center>
+<center><b>HoJeong Kim</b></center>
 
-## Features
+## 👋 About Me
 
--   Minimal, you can focus on your content
--   Responsive
--   Disqus integration
--   Syntax highlighting
--   Optional post image
--   Social icons
--   Page for sharing projects
--   Optional background image
--   Simple navigation menu
--   MathJax support
+안녕하세요! 저는 **주니어 백엔드 개발자** HoJeong Kim입니다.
+Spring Boot, MySQL, AWS를 활용한 백엔드 개발을 주로 하며, AI를 활용한 프로젝트에 관심이 많아요.
+이 블로그에서는 제가 배운 것들, 프로젝트 경험, 기술적인 내용을 공유합니다.
 
-## Preview
+## 💡 관심 분야
+- **Backend Development**: Spring Boot, MySQL
+- **Cloud Development**: AWS, Docker
 
-{% capture images %}
-https://cloud.githubusercontent.com/assets/754514/14509720/61c61058-01d6-11e6-93ab-0918515ecd56.png
-https://cloud.githubusercontent.com/assets/754514/14509716/61ac6c8e-01d6-11e6-879f-8308883de790.png
-{% endcapture %}
-{% include gallery images=images caption="Screenshots of Moon Theme" cols=2 %}
+## 🚀 주요 프로젝트
 
-See a [live version of Moon](http://TolgaTatli.github.io/Moonrise) hosted on GitHub.
+➡️ **[스마트폰 카메라를 활용한 시험감독 보조 시스템 - "EYESee"](https://github.com/CSID-DGU/2024-2-SCS4031-4tune-1)**
+➡️
 
-## Getting Started
+## 📬 Contact Me
+- **GitHub**: [HOJEONGKIMM](https://github.com/HOJEONGKIMM)
+- **LinkedIn**: [HoJeong Kim](http://www.linkedin.com/in/hojeong-kim-07600a2ba)
+- **Blog**: [Velog](https://velog.io/@naninaniyoyoyoyo/posts)
+- **Email**: by08035@naver.com
 
-To learn how to install and use this theme check out the [Setup Guide](http://taylantatli.me/Moon/moon-theme/) for more information.
-
-[Install Moon](https://github.com/TolgaTatli/Moonrise){: .btn}
+---
+🙌 **꾸준히 성장하는 개발자가 되겠습니다. 감사합니다!**
