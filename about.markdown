@@ -6,11 +6,9 @@ date: 2025-01-18
 comments: false
 ---
 
-<center><b>HoJeong Kim</b></center>
-
 ## 👋 About Me
 
-안녕하세요! 저는 **주니어 백엔드 개발자** HoJeong Kim입니다.
+안녕하세요! 저는 **주니어 백엔드 개발자** 김호정입니다.
 Spring Boot, MySQL, AWS를 활용한 백엔드 개발을 주로 하며, AI를 활용한 프로젝트에 관심이 많아요.
 이 블로그에서는 제가 배운 것들, 프로젝트 경험, 기술적인 내용을 공유합니다.
 
