@@ -59,3 +59,9 @@ categories: introduction
 🙌 **저에 대한 소개를 끝까지 읽어주셔서 감사합니다!**
 
 앞으로도 지속적으로 성장하고 노력하는 사람이 되겠습니다. 🚀✨
+
+---
+📞 010-6488-5968
+
+⭐ https://www.instagram.com/naninaniyoyoyoyo/
+️
