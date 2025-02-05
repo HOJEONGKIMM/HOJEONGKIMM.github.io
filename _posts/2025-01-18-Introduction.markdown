@@ -30,7 +30,7 @@ categories: introduction
 ---
 
 ## 🎨 취미
-### **음악** : 🎶 재즈, J-POP
+### **음악** : 🎶 <a href="https://www.youtube.com/watch?v=9vWEa-ydr7A" target="_blank">재즈</a>, J-POP
 
 <details>
   <summary>> 음악조아인간</summary>
@@ -62,10 +62,10 @@ categories: introduction
 ---
 
 ## 🏡 일상
-#### 혼자 카페 가기
-#### 재즈바 가기
-#### 알라딘 중고서점 방문하기
-#### 피크민하면서 걷기    <small>옹씌옹씌.....</small>
+#### ☕️ 혼자 카페 가기
+#### 🎷 재즈바 가기
+#### 📚 알라딘 중고서점 방문하기
+#### 🏃 피크민하면서 걷기              &nbsp; &nbsp; <small>  옹씌옹씌.....</small>
 
 ---
 
