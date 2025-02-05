@@ -33,19 +33,21 @@ categories: introduction
 ### **음악** : 🎶 재즈, J-POP
 
 <details>
-  <summary>음악조아인간</summary>
+  <summary>> 음악조아인간</summary>
   <img src="../assets/img/IMG_8388.PNG" alt="Image 1" width="50%">
 </details>
 
 
 ### **여행** : 🎷 재즈바 가기, 🖼 미술관 가기
 <details>
-      <summary>여행조아인간</summary>
-      <img src="../assets/img/6E4D164D-D201-45FE-A2CE-C99C0D779385_1_105_c.jpeg" alt="Image 1" width="50%">
-      <img src="../assets/img/7CAC13D5-A0E0-47A7-96DD-C61EB863A1F1_1_105_c.jpeg" alt="Image 2" width="50%">
-      <img src="../assets/img/1981CF1F-1E6F-4C7E-B404-BEC23171010B_1_105_c.jpeg" alt="Image 3" width="50%">
-      <img src="../assets/img/69E6F30D-2AF2-4F6C-9CAF-02B9FBD8A0BE_1_105_c.jpeg" alt="Image 4" width="50%">
-    </details>
+  <summary>> 여행조아인간</summary>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <img src="../assets/img/6E4D164D-D201-45FE-A2CE-C99C0D779385_1_105_c.jpeg" alt="Image 1" style="width: 35%;">
+    <img src="../assets/img/7CAC13D5-A0E0-47A7-96DD-C61EB863A1F1_1_105_c.jpeg" alt="Image 2" style="width: 35%;">
+    <img src="../assets/img/1981CF1F-1E6F-4C7E-B404-BEC23171010B_1_105_c.jpeg" alt="Image 3" style="width: 35%;">
+    <img src="../assets/img/69E6F30D-2AF2-4F6C-9CAF-02B9FBD8A0BE_1_105_c.jpeg" alt="Image 4" style="width: 35%;">
+  </div>
+</details>
 
 
 ### **책** : 📚 소설 편식 중
