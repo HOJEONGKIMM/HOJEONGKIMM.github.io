@@ -5,13 +5,14 @@ date: 2025-01-18 00:49:03 +0300
 categories: introduction
 ---
 
-# 👋 안녕하세요! 김호정입니다.
+# 하루하루는 성실하게 인생 전체는 되는대로
 
 ---
 
 ## 📌 기본 정보
 - **이름** : 김호정
 - **전공** : **경영정보학과** (Management Information System) / **융합소프트웨어** (Convergence Software) 연계전공
+- **MBTI** : ESTJ - 엄격한 관리자
 
 ---
 
@@ -25,22 +26,37 @@ categories: introduction
 
 ## 🎨 취미
 - **음악** : 🎶 재즈, J-POP
+    <details>
+      <summary>음악조아인간</summary>
+      <img src="../assets/img/IMG_8388.PNG" alt="Image 1">
+    </details>
+
+
 - **여행** : 🎷 재즈바 가기, 🖼 미술관 가기
-- **책** : 📚 소설 편식
+    <details>
+      <summary>여행조아인간</summary>
+      <img src="../assets/img/6E4D164D-D201-45FE-A2CE-C99C0D779385_1_105_c.jpeg" alt="Image 1">
+      <img src="../assets/img/7CAC13D5-A0E0-47A7-96DD-C61EB863A1F1_1_105_c.jpeg" alt="Image 2">
+      <img src="../assets/img/1981CF1F-1E6F-4C7E-B404-BEC23171010B_1_105_c.jpeg" alt="Image 3">
+      <img src="../assets/img/69E6F30D-2AF2-4F6C-9CAF-02B9FBD8A0BE_1_105_c.jpeg" alt="Image 4">
+    </details>
+
+
+- **책** : 📚 소설 편식 중
 
 ---
 
 ## 🏡 일상
-- **블로그 작성** : 📝 배운 내용을 블로그에 정리하려고 노력
-- **혼자 카페 가기** : 🍰 디저트 좋아함!
+- 혼자 카페 가기
+- 재즈바 가기
+- 알라딘 중고서점 방문하기
+- 피크민하면서 걷기
 
 ---
 
 ## 💙 SSAFY 13기에 임하는 마음
-간절히 원하던 SSAFY 13기에 합류하게 되어 기대가 큽니다!
 - 체계적인 교육을 통해 부족한 **알고리즘 지식**을 쌓고 싶습니다.
 - 팀 프로젝트를 통해 **협업 경험을 쌓고, 실무 역량을 강화**하고 싶습니다.
-- **백엔드 개발자로서 성장**하고 싶은 목표가 있습니다.
 
 ---
 
@@ -56,9 +72,9 @@ categories: introduction
 
 ---
 
-🙌 **저에 대한 소개를 끝까지 읽어주셔서 감사합니다!**
+🙌 **끝까지 들어주셔서 감사합니다!**
 
-앞으로도 지속적으로 성장하고 노력하는 사람이 되겠습니다. 🚀✨
+지속적으로 성장하고 노력하는 사람이 되겠습니다.
 
 ---
 📞 010-6488-5968
