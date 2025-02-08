@@ -6,7 +6,7 @@ tags: [jazz]
 comments: true
 ---
 
-# Flatnine Jazz Bar
+# Flatnine
 
 <div style="display: flex; justify-content: center; gap: 10px;">
     <img src="../assets/img/jazz/flatnine1.png" alt="Jazz Bar Image 1" style="width: 40%;">

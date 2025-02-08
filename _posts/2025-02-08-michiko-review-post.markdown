@@ -6,7 +6,7 @@ tags: [jazz]
 comments: true
 ---
 
-# Michico Seoul
+# Michiko Seoul
 
 <div style="display: flex; justify-content: center; gap: 10px;">
     <img src="../assets/img/jazz/michico1.png" alt="Jazz Bar Michico Image 1" style="width: 48%;">
