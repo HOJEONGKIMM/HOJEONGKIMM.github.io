@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "재즈바 리뷰 및 추천"
-date: 2025-02-11
+date: 2025-02-08
 tags: [jazz]
 comments: true
 ---
