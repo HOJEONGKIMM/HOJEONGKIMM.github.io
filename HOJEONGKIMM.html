@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kim Hojeong — AI / Backend Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-soft:#F2F6FC;
+    --bg-warm:#FFF6F1;
+    --ink:#0F1A2E;
+    --ink-soft:#59647A;
+    --ink-faint:#8B93A6;
+    --navy:#1B3A6B;
+    --navy-deep:#0F2647;
+    --navy-tint:#EAF0F8;
+    --coral:#2E6B63;
+    --coral-deep:#234F49;
+    --coral-tint:#E6F0EE;
+    --amber:#CC9A44;
+    --teal:#2FA89A;
+    --line:#E2E6ED;
+    --line-strong:#C6CDDA;
+    --font-display: 'IBM Plex Sans', 'IBM Plex Sans KR', 'IBM Plex Sans JP', sans-serif;
+    --font-body: 'IBM Plex Sans', 'IBM Plex Sans KR', 'IBM Plex Sans JP', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    --maxw: 900px;
+  }
+  html[lang="ja"]{ --font-display:'IBM Plex Sans JP','IBM Plex Sans',sans-serif; --font-body:'IBM Plex Sans JP','IBM Plex Sans',sans-serif; }
+  html[lang="ko"]{ --font-display:'IBM Plex Sans KR','IBM Plex Sans',sans-serif; --font-body:'IBM Plex Sans KR','IBM Plex Sans',sans-serif; }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0B1220; --bg-soft:#101a2e; --bg-warm:#1c1610;
+      --ink:#EDEFF3; --ink-soft:#A7B0C2; --ink-faint:#6E7890;
+      --navy:#7CA3DE; --navy-deep:#9AC0F2; --navy-tint:#152640;
+      --coral:#6FBDB2; --coral-deep:#8ED0C6; --coral-tint:#16302B;
+      --amber:#D6B26E; --teal:#5CC2B3;
+      --line:#22304A; --line-strong:#324565;
+    }
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; scroll-padding-top: calc(76px + env(safe-area-inset-top, 0px)); }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); line-height:1.65; -webkit-font-smoothing:antialiased;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  img,svg{max-width:100%;}
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  h1,h2,h3{ font-family:var(--font-display); margin:0; font-weight:600; letter-spacing:-0.01em; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  .mono{ font-family:var(--font-mono); }
+
+  /* ---------- topbar ---------- */
+  .topbar{ position:sticky; top:0; z-index:50; background:rgba(255,255,255,.88); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top,0px); }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .topbar{ background:rgba(11,18,32,.88); } }
+  .topbar-inner{ max-width:var(--maxw); margin:0 auto; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .brand{ font-family:var(--font-mono); font-size:14px; font-weight:500; letter-spacing:0.02em; white-space:nowrap; }
+  .brand span{ color:var(--ink-faint); }
+  nav.primary{ display:flex; gap:22px; flex:1; justify-content:center; }
+  nav.primary a{ font-size:13.5px; color:var(--ink-soft); position:relative; padding:2px 0; white-space:nowrap; }
+  nav.primary a::after{ content:""; position:absolute; left:0; right:0; bottom:-2px; height:2px; background:var(--coral); transform:scaleX(0); transform-origin:left; transition:transform .25s ease; }
+  nav.primary a:hover{ color:var(--ink); }
+  nav.primary a:hover::after{ transform:scaleX(1); }
+  .langs{ display:flex; gap:2px; border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  .langs button{ font-family:var(--font-mono); font-size:12px; padding:6px 10px; border:none; background:var(--bg); color:var(--ink-faint); cursor:pointer; transition:background .18s ease, color .18s ease; }
+  .langs button:hover{ background:var(--bg-soft); color:var(--ink); }
+  .langs button.active{ background:var(--navy); color:#fff; }
+  @media (max-width: 720px){ nav.primary{ display:none; } .topbar-inner{ padding:14px 20px; } }
+
+  main{ display:block; }
+  section{ padding:88px 0; border-bottom:1px solid var(--line); position:relative; overflow:hidden; }
+  section.tint-blue{ background:var(--bg-soft); }
+  section.tint-warm{ background:var(--bg-warm); }
+  section:last-of-type{ border-bottom:none; }
+  .eyebrow{ font-family:var(--font-mono); font-size:12px; color:var(--coral-deep); letter-spacing:0.04em; margin:0 0 14px; }
+  .eyebrow .num{ color:var(--ink-faint); }
+  h2.section-title{ font-size:28px; margin-bottom:36px; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:76px 0 92px; border-bottom:1px solid var(--line); background:radial-gradient(120% 100% at 78% 0%, var(--coral-tint) 0%, transparent 55%); }
+  #heroCanvas{ position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity:0; transition:opacity 1s ease; }
+  #heroCanvas.ready{ opacity:1; }
+  .hero-grid{ display:grid; grid-template-columns: 1fr; max-width:640px; position:relative; z-index:1; }
+  .hero h1{ font-size:44px; line-height:1.16; margin-bottom:14px; opacity:0; transform:translateY(8px); animation: heroIn .6s ease forwards; }
+  .hero .role{ font-family:var(--font-mono); font-size:15px; color:var(--coral-deep); margin-bottom:22px; opacity:0; transform:translateY(8px); animation: heroIn .6s ease .08s forwards; }
+  .hero p.lead{ font-size:16.5px; color:var(--ink-soft); max-width:480px; opacity:0; transform:translateY(8px); animation: heroIn .6s ease .16s forwards; }
+  @keyframes heroIn{ to{ opacity:1; transform:translateY(0); } }
+
+  .contact-row{ display:flex; gap:14px; margin-top:28px; flex-wrap:wrap; }
+  .contact-row a{ display:inline-flex; align-items:center; gap:7px; font-size:13px; font-family:var(--font-mono); border:1px solid var(--line); padding:8px 12px; border-radius:5px; color:var(--ink-soft); transition:border-color .18s ease, color .18s ease, transform .18s ease, background .18s ease; background:var(--bg); }
+  .contact-row a:hover{ border-color:var(--coral); color:var(--coral-deep); transform:translateY(-2px); background:var(--coral-tint); }
+  .contact-row svg{ width:14px; height:14px; fill:currentColor; }
+
+
+  @media (max-width: 760px){
+    .hero-grid{ grid-template-columns:1fr; gap:30px; align-items:start; }
+    .hero h1{ font-size:32px; }
+  }
+
+  /* ---------- about ---------- */
+  #about p{ font-size:16.5px; color:var(--ink-soft); max-width:680px; }
+
+  /* ---------- experience ---------- */
+  .company-head{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+  .company-head .name{ font-size:19px; font-weight:600; }
+  .company-head .period{ font-family:var(--font-mono); font-size:13px; color:var(--ink-faint); }
+  .company-role{ font-size:14px; color:var(--ink-soft); margin-bottom:36px; }
+
+  .subproject{ padding-left:20px; border-left:3px solid var(--coral); margin-bottom:40px; }
+  .subproject:last-child{ margin-bottom:0; }
+  .subproject h3{ font-size:17px; margin-bottom:6px; }
+  .subproject .meta{ font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); margin-bottom:14px; }
+  .subproject .role-line{ font-size:14px; color:var(--ink-soft); margin-bottom:16px; }
+
+  .tagrow{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .tag{ font-family:var(--font-mono); font-size:11.5px; padding:4px 9px; border-radius:4px; background:var(--navy-tint); color:var(--navy); border:1px solid transparent; transition:background .18s ease, color .18s ease, border-color .18s ease; }
+  .tag:hover{ background:transparent; border-color:var(--navy); }
+
+  .stat-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-bottom:18px; border-radius:6px; overflow:hidden; }
+  .stat-cell{ background:var(--bg); padding:16px 14px; transition:background .18s ease; }
+  .stat-cell:hover{ background:var(--coral-tint); }
+  .stat-cell .num{ font-family:var(--font-mono); font-size:22px; font-weight:600; color:var(--coral-deep); }
+  .stat-cell .lbl{ font-size:11.5px; color:var(--ink-soft); margin-top:6px; line-height:1.4; }
+  @media (max-width:640px){ .stat-grid{ grid-template-columns:repeat(2,1fr); } }
+
+  ul.bullets{ display:flex; flex-direction:column; gap:9px; }
+  ul.bullets li{ font-size:14.5px; color:var(--ink-soft); padding-left:16px; position:relative; }
+  ul.bullets li::before{ content:""; position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--line-strong); }
+
+  /* ---------- projects ---------- */
+  .project-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media (max-width:720px){ .project-grid{ grid-template-columns:1fr; } }
+  .project-card{ border:1px solid var(--line); border-radius:12px; overflow:hidden; display:flex; flex-direction:column; background:var(--bg); cursor:pointer; transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+  .project-card:hover{ transform:translateY(-4px); box-shadow:0 20px 40px -20px rgba(15,26,46,.28); border-color:var(--line-strong); }
+  .banner{ height:132px; position:relative; display:flex; align-items:center; padding:0 22px; }
+  .banner.b-daon{ background:linear-gradient(135deg, var(--coral) 0%, var(--amber) 100%); }
+  .banner.b-eyesee{ background:linear-gradient(135deg, var(--navy-deep) 0%, var(--teal) 100%); }
+  .banner svg{ width:52px; height:52px; }
+  .banner .b-title{ margin-left:16px; color:#fff; font-size:20px; font-weight:600; font-family:var(--font-display); }
+  .card-body{ padding:22px; display:flex; flex-direction:column; flex:1; }
+  .card-body .p-meta{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); margin-bottom:10px; }
+  .card-body .p-role{ font-size:13.5px; color:var(--ink-soft); margin-bottom:16px; }
+  .card-body ul.bullets{ margin-bottom:18px; flex:1; }
+  .card-actions{ display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:auto; }
+  .btn-detail{ font-family:var(--font-mono); font-size:12.5px; color:#fff; background:var(--navy); padding:9px 14px; border-radius:6px; display:inline-flex; align-items:center; gap:6px; transition:background .18s ease, transform .18s ease; }
+  .btn-detail:hover{ background:var(--navy-deep); transform:translateY(-1px); }
+  .icon-link{ color:var(--ink-faint); padding:8px; border-radius:6px; transition:color .18s ease, background .18s ease; display:inline-flex; }
+  .icon-link:hover{ color:var(--navy); background:var(--navy-tint); }
+  .icon-link svg{ width:17px; height:17px; fill:currentColor; }
+
+  /* ---------- skills ---------- */
+  .skill-groups{ display:grid; grid-template-columns:repeat(2, 1fr); gap:28px 40px; }
+  @media (max-width:640px){ .skill-groups{ grid-template-columns:1fr; } }
+  .skill-group .g-title{ font-family:var(--font-mono); font-size:12px; color:var(--coral-deep); margin-bottom:12px; letter-spacing:.02em; }
+  .skill-group .tagrow{ margin-bottom:0; }
+
+  /* ---------- education ---------- */
+  .edu-item{ display:flex; justify-content:space-between; gap:16px; padding:16px 0; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .edu-item:last-child{ border-bottom:none; }
+  .edu-item .e-name{ font-size:15px; font-weight:600; }
+  .edu-item .e-sub{ font-size:13px; color:var(--ink-soft); margin-top:3px; }
+  .edu-item .e-period{ font-family:var(--font-mono); font-size:12.5px; color:var(--ink-faint); white-space:nowrap; }
+
+  .cert-list{ margin-top:28px; display:flex; flex-direction:column; gap:8px; }
+  .cert-list li{ font-size:14px; color:var(--ink-soft); display:flex; justify-content:space-between; gap:12px; }
+  .cert-list li .c-date{ font-family:var(--font-mono); font-size:12px; color:var(--ink-faint); white-space:nowrap; }
+
+  .lang-line{ margin-top:28px; font-size:13.5px; color:var(--ink-soft); }
+  .lang-line b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- contact ---------- */
+  #contact{ text-align:center; background:linear-gradient(135deg, var(--navy-deep), var(--navy)); color:#fff; }
+  #contact h2{ font-size:30px; margin-bottom:14px; color:#fff; }
+  #contact p{ color:rgba(255,255,255,.78); max-width:480px; margin:0 auto 30px; }
+  .contact-buttons{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:12px 20px; border-radius:6px; font-family:var(--font-mono); font-size:13.5px; transition:transform .18s ease, box-shadow .18s ease, background .18s ease; }
+  .btn.primary{ background:var(--coral); color:#fff; }
+  .btn.primary:hover{ transform:translateY(-2px); background:var(--coral-deep); box-shadow:0 14px 24px -10px rgba(255,107,74,.5); }
+  .btn.ghost{ border:1px solid rgba(255,255,255,.35); color:#fff; }
+  .btn.ghost:hover{ border-color:#fff; transform:translateY(-2px); background:rgba(255,255,255,.08); }
+  .btn svg{ width:14px; height:14px; fill:currentColor; }
+
+  footer{ padding:28px 0 calc(28px + env(safe-area-inset-bottom,0px)); text-align:center; }
+  footer p{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-faint); }
+
+  /* ---------- modal ---------- */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(10,16,28,.55); z-index:200; display:none; align-items:flex-start; justify-content:center; padding:40px 20px; overflow-y:auto; backdrop-filter:blur(2px); }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{ background:var(--bg); border-radius:14px; max-width:640px; width:100%; padding:0; position:relative; box-shadow:0 30px 60px -20px rgba(0,0,0,.4); animation:modalIn .25s ease; margin-top:env(safe-area-inset-top,0px); }
+  @keyframes modalIn{ from{ opacity:0; transform:translateY(12px) scale(.98); } to{ opacity:1; transform:translateY(0) scale(1); } }
+  .modal-banner{ height:120px; border-radius:14px 14px 0 0; display:flex; align-items:center; padding:0 26px; position:relative; }
+  .modal-banner svg{ width:48px; height:48px; }
+  .modal-banner .m-title{ margin-left:16px; color:#fff; font-size:22px; font-weight:600; font-family:var(--font-display); }
+  .modal-close{ position:absolute; top:14px; right:14px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,.25); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:18px; border:none; transition:background .18s ease; }
+  .modal-close:hover{ background:rgba(255,255,255,.4); }
+  .modal-content{ padding:26px 28px 30px; }
+  .modal-content .m-tagline{ font-size:15px; color:var(--ink-soft); margin-bottom:20px; }
+  .modal-content h4{ font-family:var(--font-mono); font-size:11.5px; color:var(--coral-deep); letter-spacing:.03em; margin:22px 0 10px; }
+  .modal-content h4:first-of-type{ margin-top:0; }
+  .modal-content ul.bullets li{ font-size:14px; }
+  .modal-links{ display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+  .modal-links a{ font-family:var(--font-mono); font-size:12.5px; padding:9px 14px; border-radius:6px; border:1px solid var(--line); color:var(--ink-soft); display:inline-flex; align-items:center; gap:6px; transition:border-color .18s ease, color .18s ease; }
+  .modal-links a:hover{ border-color:var(--coral); color:var(--coral-deep); }
+  .modal-links svg{ width:13px; height:13px; fill:currentColor; }
+
+  :focus-visible{ outline:2px solid var(--coral); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    .hero h1, .hero .role, .hero p.lead{ animation:none; opacity:1; transform:none; }
+    *{ scroll-behavior:auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">KIM HOJEONG <span>/ 김호정</span></div>
+    <nav class="primary">
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#experience" data-i18n="nav.experience">Experience</a>
+      <a href="#projects" data-i18n="nav.projects">Projects</a>
+      <a href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#education" data-i18n="nav.education">Education</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+    </nav>
+    <div class="langs">
+      <button data-lang="ko">KO</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="ja">JA</button>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <section class="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="wrap hero-grid">
+      <div>
+        <h1 data-i18n="hero.title">문제를 숫자로 정의하고,<br>근거를 가지고 해결합니다</h1>
+        <div class="role" data-i18n="hero.role">AI Engineer / Backend Developer — RACE SYSTEM SOLUTIONS</div>
+        <p class="lead" data-i18n="hero.lead">경영정보학과 소프트웨어 개발을 함께 공부했고, 현재는 AI Engineering Team에서 통화 음성 전사·분류 파이프라인을 설계하고 검증합니다.</p>
+        <div class="contact-row">
+          <a href="mailto:khj15263245@gmail.com"><svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.01L12 13l8-6.99V6H4zm16 3.24-7.4 6.48a1 1 0 0 1-1.2 0L4 9.24V18h16V9.24z"/></svg>Email</a>
+          <a href="https://github.com/HOJEONGKIMM" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.34-1.11.62-1.36-2.22-.26-4.55-1.13-4.55-5.03 0-1.11.38-2.02 1.03-2.73-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.04a9.28 9.28 0 0 1 5 0c1.91-1.31 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.62 1.03 2.73 0 3.91-2.34 4.77-4.57 5.02.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>GitHub</a>
+          <a href="https://www.linkedin.com/in/hojeong-kim-07600a2ba" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2zM1.2 8.25h3.6V22H1.2V8.25zM8.6 8.25h3.45v1.87h.05c.48-.9 1.66-1.87 3.42-1.87 3.66 0 4.34 2.4 4.34 5.53V22h-3.6v-6.4c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V22H8.6V8.25z"/></svg>LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <p class="eyebrow"><span class="num">01</span> · <span data-i18n="about.eyebrow">About</span></p>
+      <h2 class="section-title" data-i18n="about.title">직무 요약</h2>
+      <p data-i18n="about.body">경영정보학과 소프트웨어 개발을 함께 공부했고, SSAFY에서의 팀 개발 경험을 거쳐 2026년 4월부터 RACE SYSTEM SOLUTIONS의 AI Engineering Team에서 통화 음성의 문자전사·분류 기반 PoC를 담당하고 있습니다. 온프레미스 GPU 실기에서의 성능 검증과 LLM을 이용한 통화 분류 파이프라인의 설계·평가를 맡아, 원문과의 전량 대조를 통해 문제를 수치로 드러낸 뒤 개선을 반복했습니다. 연구 과정에서는 6인 팀의 리더로 요구사항 정리·API 사양 조정·개발을 진행해 공통 프로젝트 우수상을 받았습니다. 문제를 숫자로 파악하고 관계자와 합의를 이루며 해결까지 진행하는 것을 강점으로 삼고 있습니다.</p>
+    </div>
+  </section>
+
+  <section id="experience" class="tint-blue">
+    <div class="wrap">
+      <p class="eyebrow"><span class="num">02</span> · <span data-i18n="exp.eyebrow">Experience</span></p>
+      <h2 class="section-title" data-i18n="exp.title">경력</h2>
+
+      <div class="company-head">
+        <div class="name">RACE SYSTEM SOLUTIONS</div>
+        <div class="period mono">2026.04 — <span data-i18n="exp.present">현재</span></div>
+      </div>
+      <div class="company-role" data-i18n="exp.companyRole">AI Engineering Team · AI Engineer · 정규직</div>
+
+      <div class="subproject">
+        <h3 data-i18n="exp.p1.title">통화 음성 문자전사·분류 기반 PoC</h3>
+        <div class="meta">2026.09 — <span data-i18n="exp.present">현재</span> · <span data-i18n="exp.p1.team">3인 체제</span></div>
+        <div class="role-line" data-i18n="exp.p1.role">역할: 추론 기반 성능 검증, 전처리·LLM 분류 파이프라인 설계·평가</div>
+        <div class="tagrow">
+          <span class="tag">Python</span><span class="tag">fast-whisper</span><span class="tag">Ollama</span>
+          <span class="tag">Qwen3</span><span class="tag">GCP</span><span class="tag">Linux</span><span class="tag">NVIDIA GPU</span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-cell"><div class="num">225×</div><div class="lbl" data-i18n="exp.p1.stat1">실시간 대비 처리 속도, 실패 0건</div></div>
+          <div class="stat-cell"><div class="num">49.3%</div><div class="lbl" data-i18n="exp.p1.stat2">100건 전량 대조 분류 정답률</div></div>
+          <div class="stat-cell"><div class="num">62.5→0%</div><div class="lbl" data-i18n="exp.p1.stat3">2단계 구성 도입 후 자기모순 비율</div></div>
+          <div class="stat-cell"><div class="num">55→7.5%</div><div class="lbl" data-i18n="exp.p1.stat4">체크리스트 방식 도입 후 라벨 편향</div></div>
+          <div class="stat-cell"><div class="num">2.52×</div><div class="lbl" data-i18n="exp.p1.stat5">병렬 추론 적용 후 처리 속도</div></div>
+          <div class="stat-cell"><div class="num">0.03円</div><div class="lbl" data-i18n="exp.p1.stat6">자기삭제형 GPU 테스트 VM 비용</div></div>
+        </div>
+        <ul class="bullets" data-i18n-list="exp.p1.bullets"></ul>
+      </div>
+
+      <div class="subproject">
+        <h3 data-i18n="exp.p2.title">후보자 매칭 AI 에이전트 구성 설계 (사내)</h3>
+        <div class="meta">2026.09 — <span data-i18n="exp.present">현재</span></div>
+        <div class="tagrow">
+          <span class="tag">Python</span><span class="tag">Google ADK</span><span class="tag">Gemini</span>
+        </div>
+        <ul class="bullets" data-i18n-list="exp.p2.bullets"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <p class="eyebrow"><span class="num">03</span> · <span data-i18n="proj.eyebrow">Projects</span></p>
+      <h2 class="section-title" data-i18n="proj.title">학생·연구 프로젝트</h2>
+      <div class="project-grid">
+
+        <div class="project-card" data-project="daon" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="banner b-daon">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#fff"/></svg>
+            <div class="b-title">Daon</div>
+          </div>
+          <div class="card-body">
+            <div class="p-meta">2025.07 — 2025.08 · SSAFY · <span data-i18n="proj.award">공통 프로젝트 우수상</span></div>
+            <div class="p-role" data-i18n="proj.daon.role">다문화가정 대상 AI 통합지원 플랫폼 · 6인 팀 리더 (백엔드·AI)</div>
+            <ul class="bullets" data-i18n-list="proj.daon.bulletsShort"></ul>
+            <div class="tagrow">
+              <span class="tag">Spring Boot</span><span class="tag">FastAPI</span><span class="tag">Wav2Vec2</span><span class="tag">AWS S3</span>
+            </div>
+            <div class="card-actions">
+              <span class="btn-detail"><span data-i18n="proj.viewDetail">자세히 보기</span> →</span>
+              <a class="icon-link" href="https://github.com/HOJEONGKIMM/Daon" target="_blank" rel="noopener" onclick="event.stopPropagation()" aria-label="GitHub">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.34-1.11.62-1.36-2.22-.26-4.55-1.13-4.55-5.03 0-1.11.38-2.02 1.03-2.73-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.04a9.28 9.28 0 0 1 5 0c1.91-1.31 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.62 1.03 2.73 0 3.91-2.34 4.77-4.57 5.02.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card" data-project="eyesee" tabindex="0" role="button" aria-haspopup="dialog">
+          <div class="banner b-eyesee">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3.2" fill="#fff"/></svg>
+            <div class="b-title">EYESee</div>
+          </div>
+          <div class="card-body">
+            <div class="p-meta">2024.09 — 2024.12 · Dongguk University</div>
+            <div class="p-role" data-i18n="proj.eyesee.role">AI 기반 대면시험 부정행위 탐지 시스템 · 백엔드·DB설계·프론트 배포</div>
+            <ul class="bullets" data-i18n-list="proj.eyesee.bulletsShort"></ul>
+            <div class="tagrow">
+              <span class="tag">Spring Boot</span><span class="tag">YOLOv8</span><span class="tag">MediaPipe</span><span class="tag">Next.js</span>
+            </div>
+            <div class="card-actions">
+              <span class="btn-detail"><span data-i18n="proj.viewDetail">자세히 보기</span> →</span>
+              <a class="icon-link" href="https://github.com/HOJEONGKIMM/2024-2-SCS4031-4tune-1" target="_blank" rel="noopener" onclick="event.stopPropagation()" aria-label="GitHub">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.34-1.11.62-1.36-2.22-.26-4.55-1.13-4.55-5.03 0-1.11.38-2.02 1.03-2.73-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.04a9.28 9.28 0 0 1 5 0c1.91-1.31 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.62 1.03 2.73 0 3.91-2.34 4.77-4.57 5.02.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="tint-warm">
+    <div class="wrap">
+      <p class="eyebrow"><span class="num">04</span> · <span data-i18n="skills.eyebrow">Skills</span></p>
+      <h2 class="section-title" data-i18n="skills.title">기술 스택</h2>
+      <div class="skill-groups">
+        <div class="skill-group">
+          <div class="g-title" data-i18n="skills.backend">BACKEND</div>
+          <div class="tagrow">
+            <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">JPA</span>
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">REST API</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="g-title" data-i18n="skills.infra">INFRA / CLOUD</div>
+          <div class="tagrow">
+            <span class="tag">AWS Elastic Beanstalk</span><span class="tag">AWS RDS</span><span class="tag">AWS S3</span>
+            <span class="tag">GCP</span><span class="tag">Docker</span><span class="tag">Nginx</span><span class="tag">Linux</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="g-title" data-i18n="skills.db">DATABASE</div>
+          <div class="tagrow">
+            <span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Redis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="g-title" data-i18n="skills.tools">FRONTEND / TOOLS</div>
+          <div class="tagrow">
+            <span class="tag">React</span><span class="tag">Git</span>
+            <span class="tag">GitHub</span><span class="tag">GitLab CI/CD</span><span class="tag">Jira</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <p class="eyebrow"><span class="num">05</span> · <span data-i18n="edu.eyebrow">Education</span></p>
+      <h2 class="section-title" data-i18n="edu.title">학력 및 자격</h2>
+
+      <div class="edu-item">
+        <div>
+          <div class="e-name" data-i18n="edu.dgu.name">동국대학교 (Dongguk University)</div>
+          <div class="e-sub" data-i18n="edu.dgu.sub">경영정보학 학사 · 융합소프트웨어 부전공 · GPA 4.28 / 4.5</div>
+        </div>
+        <div class="e-period">2020.03 — 2025.02</div>
+      </div>
+      <div class="edu-item">
+        <div>
+          <div class="e-name" data-i18n="edu.cuny.name">CUNY Brooklyn College</div>
+          <div class="e-sub" data-i18n="edu.cuny.sub">교환학생 프로그램 · Business Analytics</div>
+        </div>
+        <div class="e-period">2022.09 — 2023.01</div>
+      </div>
+      <div class="edu-item">
+        <div>
+          <div class="e-name">Samsung Software Academy for Youth (SSAFY) 13기</div>
+          <div class="e-sub" data-i18n="edu.ssafy.sub">집중 개발 교육 프로그램 · Java/Spring Boot 기반 웹 개발</div>
+        </div>
+        <div class="e-period">2025.01 — 2025.12</div>
+      </div>
+      <div class="edu-item">
+        <div>
+          <div class="e-name">Gwangju AI School</div>
+          <div class="e-sub" data-i18n="edu.gwangju.sub">백엔드 개발 및 머신러닝·딥러닝 기초</div>
+        </div>
+        <div class="e-period">2023.06 — 2023.12</div>
+      </div>
+
+      <ul class="cert-list">
+        <li><span>ADsP (데이터분석 준전문가)</span><span class="c-date">2025.02</span></li>
+        <li><span>SQLD (SQL 개발자)</span><span class="c-date">2024.04</span></li>
+        <li><span>Microsoft Certified: Azure AI Fundamentals</span><span class="c-date">2023.11</span></li>
+        <li><span data-i18n="edu.itq">컴퓨터활용능력 1급</span><span class="c-date">2022.04</span></li>
+      </ul>
+
+      <p class="lang-line" data-i18n="edu.languages"><b>Languages</b> — 한국어(Native), 일본어(JLPT N2), 영어(OPIc AL)</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2 data-i18n="contact.title">함께 이야기 나눠보고 싶습니다</h2>
+      <p data-i18n="contact.body">숫자로 문제를 확인하고, 근거를 가지고 해결하는 과정을 좋아합니다. 궁금한 점이 있다면 편하게 연락 주세요.</p>
+      <div class="contact-buttons">
+        <a class="btn primary" href="mailto:khj15263245@gmail.com">
+          <svg viewBox="0 0 24 24"><path d="M2 4h20v16H2V4zm2 2v.01L12 13l8-6.99V6H4zm16 3.24-7.4 6.48a1 1 0 0 1-1.2 0L4 9.24V18h16V9.24z"/></svg>
+          <span data-i18n="contact.email">이메일 보내기</span>
+        </a>
+        <a class="btn ghost" href="https://github.com/HOJEONGKIMM" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.34-1.11.62-1.36-2.22-.26-4.55-1.13-4.55-5.03 0-1.11.38-2.02 1.03-2.73-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.04a9.28 9.28 0 0 1 5 0c1.91-1.31 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.62 1.03 2.73 0 3.91-2.34 4.77-4.57 5.02.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/hojeong-kim-07600a2ba" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.6 4.1 5.5 3 5.5S1 4.6 1 3.5 1.9 1.5 3 1.5s1.98.9 1.98 2zM1.2 8.25h3.6V22H1.2V8.25zM8.6 8.25h3.45v1.87h.05c.48-.9 1.66-1.87 3.42-1.87 3.66 0 4.34 2.4 4.34 5.53V22h-3.6v-6.4c0-1.53-.03-3.5-2.13-3.5-2.14 0-2.47 1.67-2.47 3.39V22H8.6V8.25z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Kim Hojeong · Built with precision.</p>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-banner" id="modalBanner">
+      <svg id="modalIcon" viewBox="0 0 24 24" fill="none"></svg>
+      <div class="m-title" id="modalTitle"></div>
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-content">
+      <p class="m-tagline" id="modalTagline"></p>
+      <h4 data-i18n="modal.motivation">개발 동기</h4>
+      <ul class="bullets" id="modalMotivation"></ul>
+      <h4 data-i18n="modal.diff">차별점</h4>
+      <ul class="bullets" id="modalDiff"></ul>
+      <h4 data-i18n="modal.stack">기술 스택</h4>
+      <div class="tagrow" id="modalStack"></div>
+      <div class="modal-links" id="modalLinks"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  // ---------- Hero 3D network graph ----------
+  function initHero3D(){
+    var canvas = document.getElementById('heroCanvas');
+    if (!canvas || !window.THREE) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
+    camera.position.z = 62;
+    var renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+    } catch (e) { return; }
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+    var isNarrow = window.innerWidth < 760;
+    var NODE_COUNT = isNarrow ? 32 : 68;
+    var SPREAD_X = isNarrow ? 46 : 68, SPREAD_Y = isNarrow ? 46 : 68, SPREAD_Z = 36;
+
+    var group = new THREE.Group();
+    scene.add(group);
+
+    var basePositions = new Float32Array(NODE_COUNT * 3);
+    for (var i = 0; i < NODE_COUNT; i++) {
+      basePositions[i*3]   = (Math.random() - 0.5) * SPREAD_X;
+      basePositions[i*3+1] = (Math.random() - 0.5) * SPREAD_Y;
+      basePositions[i*3+2] = (Math.random() - 0.5) * SPREAD_Z;
+    }
+    var livePositions = basePositions.slice();
+
+    var pointsGeo = new THREE.BufferGeometry();
+    pointsGeo.setAttribute('position', new THREE.BufferAttribute(livePositions, 3));
+    var pointsMat = new THREE.PointsMaterial({ color: 0x2E6B63, size: 2.4, transparent: true, opacity: 0.95, sizeAttenuation: true });
+    var pointCloud = new THREE.Points(pointsGeo, pointsMat);
+    group.add(pointCloud);
+
+    // connect each node to its 2 nearest neighbors (computed once on base layout)
+    var edgePositions = [];
+    var threshold = isNarrow ? 26 : 24;
+    for (var a = 0; a < NODE_COUNT; a++) {
+      var neighbors = [];
+      for (var b = 0; b < NODE_COUNT; b++) {
+        if (a === b) continue;
+        var dx = basePositions[a*3]-basePositions[b*3], dy = basePositions[a*3+1]-basePositions[b*3+1], dz = basePositions[a*3+2]-basePositions[b*3+2];
+        var d = Math.sqrt(dx*dx+dy*dy+dz*dz);
+        neighbors.push([b, d]);
+      }
+      neighbors.sort(function(x,y){ return x[1]-y[1]; });
+      for (var k = 0; k < 2; k++) {
+        if (neighbors[k] && neighbors[k][1] < threshold) {
+          var bIdx = neighbors[k][0];
+          edgePositions.push(basePositions[a*3], basePositions[a*3+1], basePositions[a*3+2]);
+          edgePositions.push(basePositions[bIdx*3], basePositions[bIdx*3+1], basePositions[bIdx*3+2]);
+        }
+      }
+    }
+    var edgeGeo = new THREE.BufferGeometry();
+    edgeGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(edgePositions), 3));
+    var edgeMat = new THREE.LineBasicMaterial({ color: 0x1B3A6B, transparent: true, opacity: 0.22 });
+    var lines = new THREE.LineSegments(edgeGeo, edgeMat);
+    group.add(lines);
+
+    var mouseX = 0, mouseY = 0, curRotY = 0, curRotX = 0;
+    window.addEventListener('mousemove', function(e){
+      mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+    }, { passive: true });
+    window.addEventListener('touchmove', function(e){
+      if (!e.touches || !e.touches[0]) return;
+      mouseX = (e.touches[0].clientX / window.innerWidth) * 2 - 1;
+      mouseY = (e.touches[0].clientY / window.innerHeight) * 2 - 1;
+    }, { passive: true });
+
+    function resize(){
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    var running = true;
+    var rafId = null;
+    var start = performance.now();
+
+    function animate(){
+      rafId = requestAnimationFrame(animate);
+      var t = (performance.now() - start) / 1000;
+      if (!reduceMotion) {
+        group.rotation.y += 0.0016;
+        group.rotation.x = Math.sin(t * 0.18) * 0.10;
+        curRotY += (mouseX * 0.35 - curRotY) * 0.05;
+        curRotX += (mouseY * 0.2 - curRotX) * 0.05;
+        group.rotation.y += curRotY * 0.03;
+        group.rotation.x += curRotX * 0.03;
+        for (var i = 0; i < NODE_COUNT; i++) {
+          livePositions[i*3+1] = basePositions[i*3+1] + Math.sin(t * 0.7 + i) * 0.7;
+          livePositions[i*3]   = basePositions[i*3]   + Math.cos(t * 0.5 + i) * 0.4;
+        }
+        pointsGeo.attributes.position.needsUpdate = true;
+      }
+      renderer.render(scene, camera);
+    }
+    animate();
+    canvas.classList.add('ready');
+
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (entry.isIntersecting && !running) {
+            running = true; animate();
+          } else if (!entry.isIntersecting && running) {
+            running = false;
+            if (rafId) cancelAnimationFrame(rafId);
+          }
+        });
+      }, { threshold: 0.05 });
+      obs.observe(canvas.closest('.hero'));
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(initHero3D, 0);
+  } else {
+    document.addEventListener('DOMContentLoaded', initHero3D);
+  }
+})();
+
+(function(){
+  var translations = {
+    ko: {
+      "nav.about":"About","nav.experience":"Experience","nav.projects":"Projects","nav.skills":"Skills","nav.education":"Education","nav.contact":"Contact",
+      "hero.title":"문제를 숫자로 정의하고,<br>근거를 가지고 해결합니다",
+      "hero.role":"AI Engineer / Backend Developer — RACE SYSTEM SOLUTIONS",
+      "hero.lead":"경영정보학과 소프트웨어 개발을 함께 공부했고, 현재는 AI Engineering Team에서 통화 음성 전사·분류 파이프라인을 설계하고 검증합니다.",
+      "hero.statLabel":"추론 처리 성능 검증 결과",
+      "hero.statSub":"실시간 대비 처리 속도 · 실패 0건",
+      "about.eyebrow":"About","about.title":"직무 요약",
+      "about.body":"경영정보학과 소프트웨어 개발을 함께 공부했고, SSAFY에서의 팀 개발 경험을 거쳐 2026년 4월부터 RACE SYSTEM SOLUTIONS의 AI Engineering Team에서 통화 음성의 문자전사·분류 기반 PoC를 담당하고 있습니다. 온프레미스 GPU 실기에서의 성능 검증과 LLM을 이용한 통화 분류 파이프라인의 설계·평가를 맡아, 원문과의 전량 대조를 통해 문제를 수치로 드러낸 뒤 개선을 반복했습니다. 연구 과정에서는 6인 팀의 리더로 요구사항 정리·API 사양 조정·개발을 진행해 공통 프로젝트 우수상을 받았습니다. 문제를 숫자로 파악하고 관계자와 합의를 이루며 해결까지 진행하는 것을 강점으로 삼고 있습니다.",
+      "exp.eyebrow":"Experience","exp.title":"경력","exp.present":"현재",
+      "exp.companyRole":"AI Engineering Team · AI Engineer · 정규직",
+      "exp.p1.title":"통화 음성 문자전사·분류 기반 PoC","exp.p1.team":"3인 체제",
+      "exp.p1.role":"역할: 추론 기반 성능 검증, 전처리·LLM 분류 파이프라인 설계·평가",
+      "exp.p1.stat1":"실시간 대비 처리 속도, 실패 0건","exp.p1.stat2":"100건 전량 대조 분류 정답률",
+      "exp.p1.stat3":"2단계 구성 도입 후 자기모순 비율","exp.p1.stat4":"체크리스트 방식 도입 후 라벨 편향",
+      "exp.p1.stat5":"병렬 추론 적용 후 처리 속도","exp.p1.stat6":"자기삭제형 GPU 테스트 VM 비용",
+      "exp.p1.bullets":[
+        "온프레미스 GPU 실기에서 본번 예상량의 약 90%를 4개 프로세스로 전량 처리해 실시간 대비 225배, 실패 0건을 확인 (요건 대비 2.7배)",
+        "\"CPU 수가 많아서 빠른 것 아닌가\"라는 의심을 8vCPU 상당 고정 실험으로 분리 검증 (171배). 4프로세스화 효과가 1.36배에 머무른 원인을 전력 상한(200W)에 의한 제약으로 특정",
+        "100건을 원문과 전량 대조해 분류 정답률 49.3%, 영업전화 여부 판정 오류 13/38건(34%)을 정량화. 프롬프트 내 라벨 오기를 원인으로 특정해 수정",
+        "판정을 담당하는 모델을 분리한 2단계 구성으로 전환해 요약과 분류 결과의 자기모순을 62.5%→0%로 감소. 체크리스트 방식과 코드 우선순위 판정 도입으로 특정 라벨 편향을 55%→7.5%로 감소",
+        "필러 제거를 규칙 기반으로 구현 (삭감률 0.47%→2.14%, 고유명사·수치 보존율 100%, GPU·LLM 비용 없음)",
+        "qwen3:8b 병렬 추론으로 2.52배 고속화. 병렬 수 16에서는 오히려 1.9배 느려짐을 실측해 상한을 8로 판단",
+        "자기삭제형 GPU VM을 구현·검증 (테스트 VM 비용 약 0.03円). 기동 직후 오삭제되는 판정 로직 결함을 발견·수정",
+        "일일 작업 로그와 실험별 평가 리포트를 클라우드 스토리지에 집약. GitHub Issue·PR로 작업 관리"
+      ],
+      "exp.p2.title":"후보자 매칭 AI 에이전트 구성 설계 (사내)",
+      "exp.p2.bullets":[
+        "ADK의 3가지 방식(sub_agents / AgentTool / 순수 함수 호출)을 동일 시나리오로 실측 비교. AgentTool의 기본 설정에서 출력 스키마가 손상되는 것을 확인해, 순수 함수 방식을 기준선으로 채택"
+      ],
+      "proj.eyebrow":"Projects","proj.title":"학생·연구 프로젝트","proj.award":"공통 프로젝트 우수상",
+      "proj.viewDetail":"자세히 보기",
+      "proj.daon.role":"다문화가정 대상 AI 통합지원 플랫폼 · 6인 팀 리더 (백엔드·AI)",
+      "proj.daon.bulletsShort":[
+        "한국어 발음 평가 API (Wav2Vec2 + 자모 단위 레벤슈타인 거리, 0~100점)",
+        "아동 발화 감정·요약 분석 + DALL·E 그림일지 생성 API"
+      ],
+      "proj.eyesee.role":"AI 기반 대면시험 부정행위 탐지 시스템 · 백엔드·DB설계·프론트 배포",
+      "proj.eyesee.bulletsShort":[
+        "시험/실시 단위를 분리한 ERD 단독 설계",
+        "Spring Boot ↔ AI(FastAPI) 서버 EC2 분리로 왕복 지연 회피"
+      ],
+      "skills.eyebrow":"Skills","skills.title":"기술 스택",
+      "skills.backend":"BACKEND","skills.infra":"INFRA / CLOUD","skills.db":"DATABASE","skills.tools":"FRONTEND / TOOLS",
+      "edu.eyebrow":"Education","edu.title":"학력 및 자격",
+      "edu.dgu.name":"동국대학교 (Dongguk University)","edu.dgu.sub":"경영정보학 학사 · 융합소프트웨어 부전공 · GPA 4.28 / 4.5",
+      "edu.cuny.sub":"교환학생 프로그램 · Business Analytics",
+      "edu.ssafy.sub":"집중 개발 교육 프로그램 · Java/Spring Boot 기반 웹 개발",
+      "edu.gwangju.sub":"백엔드 개발 및 머신러닝·딥러닝 기초",
+      "edu.itq":"컴퓨터활용능력 1급",
+      "edu.languages":"<b>Languages</b> — 한국어(Native), 일본어(JLPT N2), 영어(OPIc AL)",
+      "contact.title":"함께 이야기 나눠보고 싶습니다","contact.body":"숫자로 문제를 확인하고, 근거를 가지고 해결하는 과정을 좋아합니다. 궁금한 점이 있다면 편하게 연락 주세요.",
+      "contact.email":"이메일 보내기",
+      "modal.motivation":"개발 동기","modal.diff":"차별점","modal.stack":"기술 스택",
+      "modal.github":"GitHub","modal.demo":"데모 영상","modal.live":"배포 사이트"
+    },
+    en: {
+      "nav.about":"About","nav.experience":"Experience","nav.projects":"Projects","nav.skills":"Skills","nav.education":"Education","nav.contact":"Contact",
+      "hero.title":"I define problems in numbers,<br>and solve them with evidence",
+      "hero.role":"AI Engineer / Backend Developer — RACE SYSTEM SOLUTIONS",
+      "hero.lead":"I studied management information systems alongside software development, and I currently design and validate call-audio transcription and classification pipelines on an AI Engineering team.",
+      "hero.statLabel":"Inference performance validation",
+      "hero.statSub":"Throughput vs. real-time · 0 failures",
+      "about.eyebrow":"About","about.title":"Summary",
+      "about.body":"I studied management information systems alongside software development, and after a team-development experience at SSAFY, I've been working since April 2026 on the AI Engineering team at RACE SYSTEM SOLUTIONS, building a PoC for call-audio transcription and classification. I validated inference performance on on-premises GPU hardware and designed and evaluated an LLM-based call classification pipeline, surfacing issues in numbers through full audits against source transcripts and iterating from there. During training, I led a 6-person team through requirements gathering, API spec alignment, and development, earning an excellence award on the cohort's shared project. My strength is grounding problems in numbers, aligning with stakeholders, and following through to a solution.",
+      "exp.eyebrow":"Experience","exp.title":"Experience","exp.present":"Present",
+      "exp.companyRole":"AI Engineering Team · AI Engineer · Full-time",
+      "exp.p1.title":"Call-Audio Transcription & Classification PoC","exp.p1.team":"Team of 3",
+      "exp.p1.role":"Role: inference performance validation; preprocessing & LLM classification pipeline design and evaluation",
+      "exp.p1.stat1":"Throughput vs. real-time, 0 failures","exp.p1.stat2":"Classification accuracy across 100 full audits",
+      "exp.p1.stat3":"Self-contradiction rate after 2-stage redesign","exp.p1.stat4":"Label bias after checklist-based redesign",
+      "exp.p1.stat5":"Throughput after parallel inference","exp.p1.stat6":"Cost of self-deleting GPU test VM",
+      "exp.p1.bullets":[
+        "Processed roughly 90% of the projected production volume end-to-end on on-premises GPU hardware across 4 processes, confirming 225× real-time throughput with 0 failures (2.7× the requirement)",
+        "Isolated the suspicion that \"more CPUs just made it faster\" with a controlled experiment pinned to 8 vCPU-equivalent cores (171×); identified that the diminishing 1.36× gain from 4-way parallelism was bound by a 200W power ceiling",
+        "Audited 100 calls in full against source transcripts, quantifying a 49.3% classification accuracy and a 34% (13/38) error rate on the sales-call gate; traced part of the cause to a mislabeled prompt and fixed it",
+        "Redesigned into a 2-stage setup with a dedicated judgment model, cutting self-contradiction between summary and classification from 62.5% to 0%; a checklist approach plus code-level priority resolution then cut a specific label's bias from 55% to 7.5%",
+        "Implemented rule-based filler removal (reduction rate 0.47%→2.14%, 100% retention of proper nouns and numbers, no GPU/LLM cost)",
+        "Sped up qwen3:8b inference 2.52× via parallelization; measured a 1.9× slowdown at 16-way parallelism and set 8 as the practical ceiling",
+        "Built and validated a self-deleting GPU VM (test VM cost ≈ ¥0.03); found and fixed a logic flaw that deleted the VM immediately after boot",
+        "Aggregated daily work logs and per-experiment evaluation reports into cloud storage; managed work via GitHub Issues and PRs"
+      ],
+      "exp.p2.title":"Agent Architecture Design for a Candidate-Matching AI (Internal)",
+      "exp.p2.bullets":[
+        "Benchmarked ADK's three agent patterns (sub_agents / AgentTool / plain function calls) on an identical scenario; found AgentTool's default config corrupted the output schema, and adopted plain function calls as the baseline"
+      ],
+      "proj.eyebrow":"Projects","proj.title":"Student & Training Projects","proj.award":"Cohort Excellence Award",
+      "proj.viewDetail":"View details",
+      "proj.daon.role":"AI support platform for multicultural families · Team lead of 6 (Backend/AI)",
+      "proj.daon.bulletsShort":[
+        "Korean pronunciation-scoring API (Wav2Vec2 + jamo-level Levenshtein distance, 0–100 score)",
+        "Emotion/summary analysis of children's speech + DALL·E illustrated-diary generator"
+      ],
+      "proj.eyesee.role":"AI-based cheating detection for in-person exams · Backend, DB design, frontend deployment",
+      "proj.eyesee.bulletsShort":[
+        "Solo-designed ERD separating Exam and Session entities",
+        "Split Spring Boot and AI (FastAPI) servers across EC2 to avoid round-trip latency"
+      ],
+      "skills.eyebrow":"Skills","skills.title":"Technical Skills",
+      "skills.backend":"BACKEND","skills.infra":"INFRA / CLOUD","skills.db":"DATABASE","skills.tools":"FRONTEND / TOOLS",
+      "edu.eyebrow":"Education","edu.title":"Education & Certifications",
+      "edu.dgu.name":"Dongguk University","edu.dgu.sub":"B.A. in Management Information Systems · Minor in Convergence Software · GPA 4.28 / 4.5",
+      "edu.cuny.sub":"Exchange program · Business Analytics",
+      "edu.ssafy.sub":"Intensive software development program · Java/Spring Boot web development",
+      "edu.gwangju.sub":"Backend development and ML/DL fundamentals",
+      "edu.itq":"Computer Proficiency Certificate, Level 1",
+      "edu.languages":"<b>Languages</b> — Korean (Native), Japanese (JLPT N2), English (OPIc AL)",
+      "contact.title":"Let's talk","contact.body":"I enjoy grounding problems in numbers and solving them with evidence. Feel free to reach out with any questions.",
+      "contact.email":"Send an email",
+      "modal.motivation":"Motivation","modal.diff":"What's different","modal.stack":"Tech stack",
+      "modal.github":"GitHub","modal.demo":"Demo video","modal.live":"Live site"
+    },
+    ja: {
+      "nav.about":"About","nav.experience":"Experience","nav.projects":"Projects","nav.skills":"Skills","nav.education":"Education","nav.contact":"Contact",
+      "hero.title":"課題を数値で定義し、<br>根拠を持って解決します",
+      "hero.role":"AI Engineer / Backend Developer — RACE SYSTEM SOLUTIONS",
+      "hero.lead":"経営情報学とソフトウェア開発を学び、現在はAI Engineering Teamで通話音声の文字起こし・分類パイプラインの設計・検証を担当しています。",
+      "hero.statLabel":"推論処理性能の検証結果",
+      "hero.statSub":"実時間比の処理速度 · 失敗0件",
+      "about.eyebrow":"About","about.title":"職務要約",
+      "about.body":"経営情報学とソフトウェア開発を学び、SSAFYでのチーム開発を経て、2026年4月よりRACE SYSTEM SOLUTIONSのAI Engineering Teamに所属し、通話音声の文字起こし・分類基盤のPoCに従事しております。オンプレミスGPU実機での性能検証と、LLMを用いた通話分類パイプラインの設計・評価を担当し、原文との全件突合によって課題を数値で明らかにしたうえで、改善を重ねてまいりました。研修では6名チームのリーダーとして、要件整理・API仕様の調整・開発を行い、共通プロジェクトで優秀賞を受賞しました。課題を数値で捉え、関係者と認識を合わせながら解決まで進めることを強みとしております。",
+      "exp.eyebrow":"Experience","exp.title":"職務経歴","exp.present":"現在",
+      "exp.companyRole":"AI Engineering Team · AI Engineer · 正社員",
+      "exp.p1.title":"通話音声の文字起こし・分類基盤PoC","exp.p1.team":"体制：3名",
+      "exp.p1.role":"役割：推論基盤の性能検証、前処理・LLM分類パイプラインの設計・評価",
+      "exp.p1.stat1":"実時間比の処理速度、失敗0件","exp.p1.stat2":"100件全件突合の分類正答率",
+      "exp.p1.stat3":"2段構成導入後の自己矛盾率","exp.p1.stat4":"チェックリスト方式導入後のラベル偏り",
+      "exp.p1.stat5":"並列推論導入後の高速化率","exp.p1.stat6":"自己削除型GPUテストVMのコスト",
+      "exp.p1.bullets":[
+        "オンプレミスGPU実機で本番想定量の約9割規模を4プロセスで全件処理し、実時間比225倍・失敗0件を確認（要件比2.7倍）",
+        "「CPU数が多いから速いのでは」という疑いを、8vCPU相当への固定実験で切り分け（171倍）。4プロセス化の効果が1.36倍に留まる要因を、電力上限（200W）による律速と特定",
+        "100件を原文と全件突合し、分類結果の正答率49.3%、営業電話か否かの判定（ゲート）の誤判定13/38件（34%）を定量化。プロンプト内のラベル誤記を原因の一つと特定し修正",
+        "判定を担うモデルを分ける2段構成へ変更し、要約と分類結果の自己矛盾を62.5%→0%に低減。チェックリスト方式＋コード側の優先順位判定への改修で、特定ラベルへの偏りを55%→7.5%に低減",
+        "フィラー除去をルールベースで実装（削減率0.47%→2.14%、固有名詞・数値の保持率100%、GPU・LLM費用なし）",
+        "qwen3:8bの並列推論で2.52倍に高速化。並列数16では1.9倍遅くなることを実測し、8を上限と判断",
+        "自己削除型のGPU VMを実装・検証（テストVMの費用は約0.03円）。起動直後に誤削除される判定ロジックの不具合を発見・修正",
+        "日次の作業ログと、実験ごとの評価レポートを作成してクラウドストレージに集約。GitHubのIssue・PRで作業を管理"
+      ],
+      "exp.p2.title":"候補者マッチングAIのエージェント構成設計（社内）",
+      "exp.p2.bullets":[
+        "ADKの3方式（sub_agents／AgentTool／純関数呼び出し）を同一シナリオで実測比較。AgentToolの既定設定で出力スキーマが破損することを確認し、純関数方式を基準線として採用"
+      ],
+      "proj.eyebrow":"Projects","proj.title":"学生・研修プロジェクト","proj.award":"SSAFY共通プロジェクト優秀賞",
+      "proj.viewDetail":"詳しく見る",
+      "proj.daon.role":"多文化家庭向けAI統合支援プラットフォーム · 6名チームリーダー（バックエンド・AI）",
+      "proj.daon.bulletsShort":[
+        "韓国語発音評価API（Wav2Vec2＋字母単位レーベンシュタイン距離、0〜100点）",
+        "子どもの発話の感情・要約分析＋DALL·E絵日記生成API"
+      ],
+      "proj.eyesee.role":"対面試験向けAIリアルタイム不正行為検知システム · バックエンド・DB設計・フロントデプロイ",
+      "proj.eyesee.bulletsShort":[
+        "試験・実施単位を分離したERDを単独設計",
+        "Spring BootとAI(FastAPI)サーバーをEC2で分離し往復遅延を回避"
+      ],
+      "skills.eyebrow":"Skills","skills.title":"技術スキル",
+      "skills.backend":"BACKEND","skills.infra":"INFRA / CLOUD","skills.db":"DATABASE","skills.tools":"FRONTEND / TOOLS",
+      "edu.eyebrow":"Education","edu.title":"学歴・資格",
+      "edu.dgu.name":"東国大学校（Dongguk University）","edu.dgu.sub":"経営情報学 学士 · 融合ソフトウェア副専攻 · GPA 4.28 / 4.5",
+      "edu.cuny.sub":"交換留学プログラム · Business Analytics",
+      "edu.ssafy.sub":"集中開発教育プログラム · Java/Spring Bootによるウェブ開発",
+      "edu.gwangju.sub":"バックエンド開発および機械学習・ディープラーニングの基礎",
+      "edu.itq":"コンピュータ活用能力 1級",
+      "edu.languages":"<b>Languages</b> — 韓国語（ネイティブ）、日本語（JLPT N2）、英語（OPIc AL）",
+      "contact.title":"お気軽にご連絡ください","contact.body":"課題を数値で捉え、根拠を持って解決していく過程を大切にしています。ご質問があれば、お気軽にご連絡ください。",
+      "contact.email":"メールを送る",
+      "modal.motivation":"開発動機","modal.diff":"差別点","modal.stack":"技術スタック",
+      "modal.github":"GitHub","modal.demo":"デモ動画","modal.live":"公開サイト"
+    }
+  };
+
+  var projectDetails = {
+    daon: {
+      icon: '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="var(--coral)"/>',
+      bannerClass: 'b-daon',
+      title: {ko:'Daon', en:'Daon', ja:'Daon'},
+      tagline: {
+        ko:'다문화 가정이 언어·문화 장벽을 넘어 소통하고 지역사회와 연결되도록 돕는 AI 통합지원 플랫폼입니다.',
+        en:'An AI-powered platform helping multicultural families overcome language and cultural barriers and connect with their communities.',
+        ja:'多文化家庭が言語・文化の壁を越えて交流し、地域社会とつながることを支援するAI統合支援プラットフォームです。'
+      },
+      motivation: {
+        ko:['다문화가정 아동은 부모와의 의사소통, 학교생활, 지역사회 적응에 어려움을 겪음','한국어 발음·문서 이해 부족으로 학습에서 소외되기 쉬움','같은 지역 이주민들과 연결될 커뮤니티가 부족함'],
+        en:['Children in multicultural families often struggle to communicate with parents and adapt to school and community life','Gaps in Korean pronunciation and document comprehension can leave them behind in learning','There was no community for local immigrant families to connect with each other'],
+        ja:['多文化家庭の子どもは親との会話や学校生活、地域適応に困難を抱えやすい','韓国語の発音・文書理解の不足で学習面で取り残されやすい','同じ地域の移住者同士がつながるコミュニティが不足していた']
+      },
+      diff: {
+        ko:['펭구(가상 캐릭터)와의 대화를 요약·감정분석해 그림일기로 제공, 부모가 아이의 마음을 쉽게 이해','OCR+LLM으로 공공문서를 쉬운 한국어로 요약하고 모국어로 번역','STT(Wav2Vec2)+G2P+자모 분해+가중 레벤슈타인 거리로 발음을 0~100점으로 실시간 채점','병원·관공서·은행 등 실생활 시나리오 기반 상황별 한국어 학습 제공'],
+        en:['Summarizes and emotion-analyzes a child\'s chat with a virtual companion into an illustrated diary, so parents can understand their child\'s feelings','Uses OCR + an LLM to summarize public documents in plain Korean and translate them into the family\'s native language','Scores pronunciation in real time on a 0–100 scale via STT (Wav2Vec2) + G2P + jamo decomposition + weighted Levenshtein distance','Offers situational Korean lessons based on real-life scenarios like hospitals, government offices, and banks'],
+        ja:['仮想キャラクターとの会話を要約・感情分析し、絵日記として提供。親が子どもの気持ちを理解しやすくする','OCR＋LLMで公共文書をやさしい韓国語に要約し、母国語に翻訳','STT(Wav2Vec2)＋G2P＋字母分解＋重み付きレーベンシュタイン距離で発音をリアルタイムに0〜100点で採点','病院・役所・銀行など実生活シナリオに基づく状況別韓国語学習を提供']
+      },
+      stack: ['Spring Boot','JPA','MySQL','Redis','FastAPI','Wav2Vec2','Whisper','DALL·E','Vue.js','AWS S3/EC2/RDS','GitLab CI/CD'],
+      links: { github:'https://github.com/HOJEONGKIMM/Daon', demo:'https://youtu.be/5iCgdnhOeOo', live:'https://i13a706.p.ssafy.io/' }
+    },
+    eyesee: {
+      icon: '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z" stroke="var(--navy)" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="3.2" fill="var(--navy)"/>',
+      bannerClass: 'b-eyesee',
+      title: {ko:'EYESee', en:'EYESee', ja:'EYESee'},
+      tagline: {
+        ko:'스마트폰 카메라로 대면시험의 부정행위를 실시간 감지해 감독관의 부담을 줄이는 시스템입니다.',
+        en:'A system that uses a smartphone camera to detect exam cheating in real time, easing the burden on proctors.',
+        ja:'スマートフォンのカメラで対面試験の不正行為をリアルタイムに検知し、監督者の負担を減らすシステムです。'
+      },
+      motivation: {
+        ko:['대규모 시험에서 모든 수험자를 실시간으로 감독하는 것은 현실적으로 어려움','대면 시험에서는 시선·행동 감시가 필수적이지만 인력·기술 한계로 부정행위 감지가 어려움','부정행위를 실시간 감지해 모든 수험자에게 공정한 환경을 제공할 필요가 있음'],
+        en:['Monitoring every test-taker in real time during large-scale exams is practically difficult','In-person exams require watching gaze and behavior, but limited staff and tools make cheating hard to catch','Real-time detection was needed to give every test-taker a fair, equal environment'],
+        ja:['大規模試験で全受験者をリアルタイムに監督するのは現実的に難しい','対面試験では視線・行動の監視が不可欠だが、人員・技術の限界で不正検知が困難','不正行為をリアルタイムで検知し、全受験者に公正な環境を提供する必要があった']
+      },
+      diff: {
+        ko:['기존 시스템은 비대면 시험에 최적화되어 있는 반면, 대면 시험 환경에 맞춰 설계','모바일 카메라로 시선을 추적하고 손·책상 위 물체를 탐지 (YOLOv8 + MediaPipe)','경고 발생 시에만 영상을 녹화해 데이터 처리·저장 부담을 최소화','부정행위 감지 시 감독관에게 즉시 알림을 전송해 신속한 개입 지원'],
+        en:['Existing systems were built for remote exams; this one is designed specifically for in-person settings','Tracks gaze via a mobile camera and detects objects on hands or desks (YOLOv8 + MediaPipe)','Only records video when a warning triggers, minimizing data processing and storage overhead','Sends instant alerts to proctors on detection, enabling fast intervention'],
+        ja:['既存システムは非対面試験向けだが、本システムは対面試験環境に特化して設計','モバイルカメラで視線を追跡し、手や机上の物体を検知（YOLOv8＋MediaPipe）','警告発生時のみ映像を録画し、データ処理・保存の負担を最小化','不正検知時に監督者へ即時通知し、迅速な対応を支援']
+      },
+      stack: ['Spring Boot','MySQL','Redis','FastAPI','YOLOv8','MediaPipe','AWS EC2/RDS','Nginx','Next.js','Vercel'],
+      links: { github:'https://github.com/HOJEONGKIMM/2024-2-SCS4031-4tune-1', demo:'https://www.youtube.com/watch?v=8RqMpJyir2c', live:'https://eyesee-exam.vercel.app' }
+    }
+  };
+
+  var htmlEl = document.documentElement;
+  var STORAGE_KEY = "portfolio_lang";
+  var currentLang = "ko";
+
+  function applyLang(lang){
+    currentLang = lang;
+    var dict = translations[lang] || translations.ko;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll("[data-i18n-list]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-list");
+      var arr = dict[key];
+      if (Array.isArray(arr)) el.innerHTML = arr.map(function(item){ return "<li>" + item + "</li>"; }).join("");
+    });
+    htmlEl.setAttribute("lang", lang);
+    document.querySelectorAll(".langs button").forEach(function(btn){
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+    });
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch(e) {}
+  }
+
+  document.querySelectorAll(".langs button").forEach(function(btn){
+    btn.addEventListener("click", function(){ applyLang(btn.getAttribute("data-lang")); });
+  });
+
+  var initialLang = "ko";
+  try {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && translations[saved]) initialLang = saved;
+  } catch(e) {}
+  applyLang(initialLang);
+
+  // modal logic
+  var overlay = document.getElementById("modalOverlay");
+  var banner = document.getElementById("modalBanner");
+  var icon = document.getElementById("modalIcon");
+  var titleEl = document.getElementById("modalTitle");
+  var taglineEl = document.getElementById("modalTagline");
+  var motivationEl = document.getElementById("modalMotivation");
+  var diffEl = document.getElementById("modalDiff");
+  var stackEl = document.getElementById("modalStack");
+  var linksEl = document.getElementById("modalLinks");
+  var closeBtn = document.getElementById("modalClose");
+
+  function openModal(key){
+    var data = projectDetails[key];
+    if (!data) return;
+    var dict = translations[currentLang] || translations.ko;
+    banner.className = "modal-banner " + data.bannerClass;
+    icon.innerHTML = data.icon;
+    titleEl.textContent = data.title[currentLang] || data.title.ko;
+    taglineEl.textContent = data.tagline[currentLang] || data.tagline.ko;
+    motivationEl.innerHTML = (data.motivation[currentLang] || data.motivation.ko).map(function(t){ return "<li>" + t + "</li>"; }).join("");
+    diffEl.innerHTML = (data.diff[currentLang] || data.diff.ko).map(function(t){ return "<li>" + t + "</li>"; }).join("");
+    stackEl.innerHTML = data.stack.map(function(s){ return '<span class="tag">' + s + '</span>'; }).join("");
+    var linkIconGithub = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.21-3.37-1.21-.45-1.19-1.11-1.5-1.11-1.5-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.34-1.11.62-1.36-2.22-.26-4.55-1.13-4.55-5.03 0-1.11.38-2.02 1.03-2.73-.1-.26-.45-1.31.1-2.72 0 0 .84-.27 2.75 1.04a9.28 9.28 0 0 1 5 0c1.91-1.31 2.75-1.04 2.75-1.04.55 1.41.2 2.46.1 2.72.65.71 1.03 1.62 1.03 2.73 0 3.91-2.34 4.77-4.57 5.02.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.02 10.02 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>';
+    var linkIconPlay = '<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+    var linkIconGlobe = '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.9a15.6 15.6 0 0 0-1.3-4.1A8 8 0 0 1 18.9 8zM12 4c.7 1 1.5 2.6 1.9 4H10.1c.4-1.4 1.2-3 1.9-4zM4.3 10h3a13 13 0 0 0 0 4h-3a8 8 0 0 1 0-4zm1.8-2a8 8 0 0 1 3.2-2.1A15.6 15.6 0 0 0 8 8zM10.1 16h3.8c-.4 1.4-1.2 3-1.9 4-.7-1-1.5-2.6-1.9-4zm5.6 0h2.9a8 8 0 0 1-4.2 3.1c.6-1 1-2 1.3-3.1zm3-2h-3a13 13 0 0 0 0-4h3a8 8 0 0 1 0 4zM8.2 19.1A8 8 0 0 1 5.1 16H8a15.6 15.6 0 0 0 1.3 4.1z"/></svg>';
+    var linksHtml = '<a href="'+data.links.github+'" target="_blank" rel="noopener">'+linkIconGithub+' '+ (dict['modal.github']||'GitHub') +'</a>';
+    if (data.links.demo) linksHtml += '<a href="'+data.links.demo+'" target="_blank" rel="noopener">'+linkIconPlay+' '+ (dict['modal.demo']||'Demo') +'</a>';
+    if (data.links.live) linksHtml += '<a href="'+data.links.live+'" target="_blank" rel="noopener">'+linkIconGlobe+' '+ (dict['modal.live']||'Live') +'</a>';
+    linksEl.innerHTML = linksHtml;
+    overlay.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  document.querySelectorAll(".project-card").forEach(function(card){
+    card.addEventListener("click", function(){ openModal(card.getAttribute("data-project")); });
+    card.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(card.getAttribute("data-project")); } });
+  });
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", function(e){ if (e.target === overlay) closeModal(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeModal(); });
+})();
+</script>
+
+</body>
+</html>
